@@ -30,7 +30,7 @@ on:
         options:
           - VIKINGYFY/immortalwrt
           - immortalwrt/immortalwrt
-          - LiBwrt/openwrt-6.x
+          - LiBwrt/LibWrt
           - qosmio/openwrt-ipq
       BRANCH:
         default: 'main'
