@@ -31,6 +31,20 @@ sed -i "s/192\.168\.[0-9]*\.[0-9]*/$WRT_IP/g" $CFG_FILE
 #修改默认主机名
 sed -i "s/hostname='.*'/hostname='$WRT_NAME'/g" $CFG_FILE
 
+#写入自定义APK软件源及签名公钥
+mkdir -p ./files/etc/apk/keys ./files/etc/apk/repositories.d
+
+cat > ./files/etc/apk/repositories.d/substore.list <<EOF
+https://substore-openwrt.pages.dev/openwrt-25.12/all/packages.adb
+EOF
+
+cat > ./files/etc/apk/keys/substore-apk.pem <<'EOF'
+-----BEGIN PUBLIC KEY-----
+MFkwEwYHKoZIzj0CAQYIKoZIzj0DAQcDQgAEJKvnnTePdD16sK/rksork3HzOxeQ
+YJjfM7/Fd1eVSpC7k4I/80OpF8lxuoCMbNilssnMtG2WUv/idDjcIEa+Lw==
+-----END PUBLIC KEY-----
+EOF
+
 #配置文件修改
 echo "CONFIG_PACKAGE_luci=y" >> ./.config
 echo "CONFIG_LUCI_LANG_zh_Hans=y" >> ./.config
