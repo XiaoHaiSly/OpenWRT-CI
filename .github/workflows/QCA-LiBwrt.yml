@@ -2,7 +2,7 @@
 # Copyright (C) 2026 VIKINGYFY
 
 #CI项目
-name: QCA-ALL
+name: QCA-LibWrt
 
 #CI计划
 on:
@@ -47,9 +47,9 @@ jobs:
       #默认主题
       WRT_THEME: aurora
       #默认主机名
-      WRT_NAME: LibWRT
+      WRT_NAME: LibWrt
       #默认WIFI名称
-      WRT_SSID: LibWRT
+      WRT_SSID: LiBwrt
       #默认WIFI密码
       WRT_WORD: 12345678
       #默认地址
