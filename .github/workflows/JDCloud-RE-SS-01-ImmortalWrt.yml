@@ -2,7 +2,7 @@
 # Copyright (C) 2026 VIKINGYFY
 
 #CI项目
-name: JDCloud-RE-SS-01-WIFI
+name: JDCloud-RE-SS-01-ImmortalWrt
 
 #CI计划
 on:
