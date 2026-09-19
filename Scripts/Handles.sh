@@ -8,7 +8,7 @@ PACKAGE_PATH="./package"
 #修改argon主题字体和颜色
 if [ -d "$PACKAGE_PATH/luci-theme-argon" ]; then
 	echo " "
-	if sed -i "s/primary '.*'/primary '#31a1a1'/g; s/'0.2'/'0.5'/g; s/'none'/'bing'/g; s/'600'/'normal'/g" \
+	if sed -i "s/primary '.*'/primary '#5e72e4'/g; s/'0.5'/'0.3'/g; s/'bing'/'none'/g; s/'600'/'normal'/g" \
 		"$PACKAGE_PATH/luci-theme-argon/luci-app-argon-config/root/etc/config/argon"; then
 		echo "theme-argon has been fixed!"
 	else
@@ -38,14 +38,25 @@ if [ -d "$PACKAGE_PATH/luci-app-mini-diskmanager" ]; then
 	fi
 fi
 
-#修改natmapt菜单位置
-if [ -d "$PACKAGE_PATH/luci-app-natmapt" ]; then
+#修改openlist菜单位置
+if [ -d "$PACKAGE_PATH/luci-app-openlist" ]; then
 	echo " "
-	if sed -i "s/network/services/g" \
-		"$PACKAGE_PATH/luci-app-natmapt/root/usr/share/luci/menu.d/luci-app-natmap.json"; then
-		echo "natmapt has been fixed!"
+	if sed -i "s/services/nas/g" \
+		"$PACKAGE_PATH/luci-app-openlist/luci-app-openlist/root/usr/share/luci/menu.d/luci-app-openlist.json"; then
+		echo "openlist has been fixed!"
 	else
-		echo "natmapt fix failed; continuing!"
+		echo "openlist fix failed; continuing!"
+	fi
+fi
+
+#修改qmodem-next菜单位置
+if [ -d "$PACKAGE_PATH/luci-app-qmodem-next" ]; then
+	echo " "
+	if sed -i "s/modem/network/g" \
+		"$PACKAGE_PATH/luci-app-qmodem-next/root/usr/share/luci/menu.d/luci-app-qmodem-next.json"; then
+		echo "qmodem-next has been fixed!"
+	else
+		echo "qmodem-next fix failed; continuing!"
 	fi
 fi
 
