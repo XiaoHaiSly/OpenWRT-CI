@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-DOCKER_STACK_REPO="XiaoHaiSly/OpenWRT-packages"
+DOCKER_STACK_REPO="XiaoHaiSly/luci-app-dockerman"
 DOCKER_STACK_BRANCH="main"
 
 _docker_stack_autodetect_build_dir() {
