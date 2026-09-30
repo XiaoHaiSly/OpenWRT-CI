@@ -5,11 +5,11 @@
 FEEDS_PATH="./feeds"
 PACKAGE_PATH="./package"
 
-#修改argon主题字体和颜色
-if [ -d "$PACKAGE_PATH/luci-theme-argon" ]; then
+#修改argon主题颜色
+if [ -d "$PACKAGE_PATH/luci-app-argon-config" ]; then
 	echo " "
-	if sed -i "s/primary '.*'/primary '#31a1a1'/g; s/'0.2'/'0.5'/g; s/'none'/'bing'/g; s/'600'/'normal'/g" \
-		"$PACKAGE_PATH/luci-theme-argon/luci-app-argon-config/root/etc/config/argon"; then
+	if sed -i "s/ primary '.*'/ primary '#5e72e4'/g; s/ blur '.*'/ blur '0'/g; s/ transparency '.*'/ transparency '0.3'/g; s/ online_wallpaper '.*'/ online_wallpaper 'none'/g" \
+		"$PACKAGE_PATH/luci-app-argon-config/root/etc/config/argon"; then
 		echo "theme-argon has been fixed!"
 	else
 		echo "theme-argon fix failed; continuing!"
@@ -38,14 +38,14 @@ if [ -d "$PACKAGE_PATH/luci-app-mini-diskmanager" ]; then
 	fi
 fi
 
-#修改natmapt菜单位置
-if [ -d "$PACKAGE_PATH/luci-app-natmapt" ]; then
+#修改openlist菜单位置
+if [ -d "$FEEDS_PATH/luci/applications/luci-app-openlist" ]; then
 	echo " "
-	if sed -i "s/network/services/g" \
-		"$PACKAGE_PATH/luci-app-natmapt/root/usr/share/luci/menu.d/luci-app-natmap.json"; then
-		echo "natmapt has been fixed!"
+	if sed -i "s/services/nas/g" \
+		"$FEEDS_PATH/luci/applications/luci-app-openlist/root/usr/share/luci/menu.d/luci-app-openlist.json"; then
+		echo "openlist has been fixed!"
 	else
-		echo "natmapt fix failed; continuing!"
+		echo "openlist fix failed; continuing!"
 	fi
 fi
 
@@ -58,4 +58,26 @@ if [ -d "$FEEDS_PATH/packages/lang/rust" ]; then
 	else
 		echo "rust fix failed; continuing!"
 	fi
+fi
+
+#替换docker相关包并检查一致性
+for DOCKER_PKG in docker dockerd containerd runc docker-compose; do
+	DOCKER_SRC="./package/luci-app-dockerman/$DOCKER_PKG"
+	DOCKER_DST="./feeds/packages/utils/$DOCKER_PKG"
+
+	if [ -d "$DOCKER_SRC" ] && [ -d "./feeds/packages/utils" ]; then
+		rm -rf "$DOCKER_DST"
+		mv -f "$DOCKER_SRC" "$DOCKER_DST"
+		echo "Replace official $DOCKER_PKG with repo version: $DOCKER_DST"
+	else
+		echo "Not found $DOCKER_PKG in luci-app-dockerman repo, keep official version!"
+	fi
+done
+
+[ -f "./feeds/packages/utils/dockerd/git-short-commit.sh" ] && chmod +x "./feeds/packages/utils/dockerd/git-short-commit.sh"
+
+DOCKER_CLI_VER=$(grep -Po "^PKG_VERSION:=\K.*" ./feeds/packages/utils/docker/Makefile 2>/dev/null)
+DOCKERD_VER=$(grep -Po "^PKG_VERSION:=\K.*" ./feeds/packages/utils/dockerd/Makefile 2>/dev/null)
+if [ -n "$DOCKER_CLI_VER" ] && [ "$DOCKER_CLI_VER" != "$DOCKERD_VER" ]; then
+	echo "WARNING: docker ($DOCKER_CLI_VER) and dockerd ($DOCKERD_VER) versions differ, dockerd build will fail!"
 fi
