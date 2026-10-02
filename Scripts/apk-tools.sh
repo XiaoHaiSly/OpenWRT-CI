@@ -10,7 +10,7 @@ mkdir -p "$PATCH_DIR"
 cat > "$PATCH_FILE" <<'PATCH'
 --- a/src/context.c
 +++ b/src/context.c
-@@ -68,7 +68,7 @@ int apk_ctx_prepare(struct apk_ctx *ac)
+@@ -66,7 +66,7 @@ int apk_ctx_prepare(struct apk_ctx *ac)
  		ac->open_flags &= ~(APK_OPENF_CREATE | APK_OPENF_WRITE);
  		ac->open_flags |= APK_OPENF_READ;
  	}
@@ -21,5 +21,5 @@ cat > "$PATCH_FILE" <<'PATCH'
  	if (!ac->root) ac->root = "/";
 PATCH
 
-echo "apk补丁已应用"
+echo "apk补丁已生成"
 echo "$PATCH_FILE"
