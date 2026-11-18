@@ -46,7 +46,7 @@ UPDATE_PACKAGE() {
 # UPDATE_PACKAGE "open-app-filter" "destan19/OpenAppFilter" "master" "" "luci-app-appfilter oaf" 这样会把原有的open-app-filter，luci-app-appfilter，oaf相关组件删除，不会出现coremark错误。
 UPDATE_PACKAGE "xiaohaisly" "XiaoHaiSly/luci-app-substore" "main" "" "luci-app-substore"
 UPDATE_PACKAGE "xiaohaisly" "XiaoHaiSly/luci-app-miaomiaowu" "main" "" "luci-app-miaomiaowu miaomiaowu"
-UPDATE_PACKAGE "xiaohaisly" "XiaoHaiSly/luci-app-lucky" "main" "" "luci-app-lucky lucky"
+UPDATE_PACKAGE "xiaohaisly" "XiaoHaiSly/luci-app-homeproxy" "main" "" "luci-app-homeproxy sing-box"
 UPDATE_PACKAGE "xiaohaisly" "XiaoHaiSly/luci-app-dockerman" "main" "" "luci-lib-docker dockerman"
 
 # UPDATE_PACKAGE "包名" "项目地址" "项目分支" "pkg，可选，从大杂烩中单独提取包名插件"
@@ -70,8 +70,12 @@ UPDATE_PACKAGE "passwall2" "Openwrt-Passwall/openwrt-passwall2" "main" "pkg"
 
 UPDATE_PACKAGE "diskmanager" "4IceG/luci-app-mini-diskmanager" "main"
 UPDATE_PACKAGE "easytier" "EasyTier/luci-app-easytier" "main"
-UPDATE_PACKAGE "viking" "VIKINGYFY/packages" "main" "" "axonhub gecoosac sing-box miniupnpd luci-app-homeproxy luci-app-wolultra luci-app-upnp"
+UPDATE_PACKAGE "lucky" "gdy666/luci-app-lucky" "main"
 UPDATE_PACKAGE "node" "nxhack/openwrt-node-packages" "master"
+
+UPDATE_PACKAGE "luci-app-wolultra" "VIKINGYFY/packages" "main" "pkg"
+UPDATE_PACKAGE "luci-app-upnp" "VIKINGYFY/packages" "main" "pkg"
+UPDATE_PACKAGE "miniupnpd" "VIKINGYFY/packages" "main" "pkg"
 
 UPDATE_PACKAGE "diskman" "sbwml/luci-app-diskman" "main"
 UPDATE_PACKAGE "mosdns" "sbwml/luci-app-mosdns" "v5" "" "v2dat"
