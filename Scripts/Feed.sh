@@ -4,7 +4,7 @@ set -eo pipefail
 #修改软件源域名
 FEED_HOST="${WRT_FEED_HOST:-}"
 
-EXTRA_FEEDS+=("https://github.com/XiaoHaiSly/openwrt-packages/releases/download/snapshots-arm64/packages.adb")
+EXTRA_FEEDS+=("https://gh-proxy.org/https://github.com/XiaoHaiSly/openwrt-packages/releases/download/snapshots-arm64/packages.adb")
 
 CONF_DIR="$GITHUB_WORKSPACE/Config"
 TOP="$PWD"
