@@ -43,25 +43,3 @@ FIX "openlist" "$FEEDS_PATH/luci/applications/luci-app-openlist" sed -i "s/servi
 #修复Rust编译失败
 FIX "rust" "$FEEDS_PATH/packages/lang/rust" sed -i 's/ci-llvm=true/ci-llvm=false/g' \
 	"$FEEDS_PATH/packages/lang/rust/Makefile"
-
-#替换docker相关包并检查一致性
-for DOCKER_PKG in docker dockerd containerd runc docker-compose; do
-	DOCKER_SRC="./package/luci-app-dockerman/$DOCKER_PKG"
-	DOCKER_DST="./feeds/packages/utils/$DOCKER_PKG"
-
-	if [ -d "$DOCKER_SRC" ] && [ -d "./feeds/packages/utils" ]; then
-		rm -rf "$DOCKER_DST"
-		mv -f "$DOCKER_SRC" "$DOCKER_DST"
-		echo "Replace official $DOCKER_PKG with repo version: $DOCKER_DST"
-	else
-		echo "Not found $DOCKER_PKG in luci-app-dockerman repo, keep official version!"
-	fi
-done
-
-[ -f "./feeds/packages/utils/dockerd/git-short-commit.sh" ] && chmod +x "./feeds/packages/utils/dockerd/git-short-commit.sh"
-
-DOCKER_CLI_VER=$(grep -Po "^PKG_VERSION:=\K.*" ./feeds/packages/utils/docker/Makefile 2>/dev/null)
-DOCKERD_VER=$(grep -Po "^PKG_VERSION:=\K.*" ./feeds/packages/utils/dockerd/Makefile 2>/dev/null)
-if [ -n "$DOCKER_CLI_VER" ] && [ "$DOCKER_CLI_VER" != "$DOCKERD_VER" ]; then
-	echo "WARNING: docker ($DOCKER_CLI_VER) and dockerd ($DOCKERD_VER) versions differ, dockerd build will fail!"
-fi
