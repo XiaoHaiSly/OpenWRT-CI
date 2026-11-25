@@ -43,3 +43,11 @@ FIX "openlist" "$FEEDS_PATH/luci/applications/luci-app-openlist" sed -i "s/servi
 #修复Rust编译失败
 FIX "rust" "$FEEDS_PATH/packages/lang/rust" sed -i 's/ci-llvm=true/ci-llvm=false/g' \
 	"$FEEDS_PATH/packages/lang/rust/Makefile"
+
+#替换 golang 版本
+rm -rf "$FEEDS_PATH/packages/lang/golang"
+if git clone --depth=1 --single-branch --branch 27.x https://github.com/sbwml/packages_lang_golang "$FEEDS_PATH/packages/lang/golang"; then
+	echo "golang has been replaced with sbwml version!"
+else
+	echo "golang clone failed!"
+fi	
